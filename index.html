@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Password Strength Simulator</h1>
+    <p>Let's see how secure your password is!</p>
+<div class="input-box">
+    <input type="password" placeholder="Password" id="password">
+    <img src="eye-closed.jpg" id="eyeicon">
+    <p id="message">Password is<span id="strength"></span></p>
+</div>
+
+
+
+<script>
+
+let eyeicon = document.getElementById("eyeicon");
+let password = document.getElementById("password");
+
+eyeicon.onclick = function(){
+    if(password.type == "password"){
+        password.type = "text";
+        eyeicon.src = "eye-opened.jpg";
+    }
+    else{
+        password.type = "password";
+        eyeicon.src = "eye-closed.jpg";
+    }
+}
+
+var passwordInput = document.getElementById("password");
+var message = document.getElementById("message");
+var strength = document.getElementById("strength");
+
+var inputBox = document.querySelector(".input-box");
+passwordInput.addEventListener('input', () =>{
+    var passwordValue = passwordInput.value;
+    var strengthValue = 0;
+
+    if(passwordValue.length >= 8){
+        strengthValue++;
+    }
+    if(/[A-Z]/.test(passwordValue)){
+        strengthValue++;
+    }
+    if(/[a-z]/.test(passwordValue)){
+        strengthValue++;
+    }
+    if(/[0-9]/.test(passwordValue)){
+        strengthValue++;
+    }
+    if(/[^A-Za-z0-9]/.test(passwordValue)){
+        strengthValue++;
+    }
+
+    message.style.display = "block";
+
+    switch(strengthValue){
+        case 0:
+            message.style.color = "red";
+            strength.innerHTML = " Weak";
+            inputBox.style.border = "3px solid red";
+            break;
+        case 1:
+            message.style.color = "orange";
+            strength.innerHTML = " Fair";
+            inputBox.style.border = "3px solid orange";
+            break;
+        case 2:
+            message.style.color = "yellow";
+            strength.innerHTML = " Good";
+            inputBox.style.border = "3px solid yellow";
+            break;
+        case 3:
+            message.style.color = "lightgreen";
+            strength.innerHTML = " Strong";
+            inputBox.style.border = "3px solid lightgreen";
+            break;
+        case 4:
+            message.style.color = "green";
+            strength.innerHTML = " Very Strong";
+            inputBox.style.border = "3px solid green";
+            break;
+        default:
+            message.style.color = "red";
+            strength.innerHTML = "";
+            inputBox.style.border = "3px solid red";
+            break;
+
+    }
+
+
+})
+
+
+
+</script>
+
+</body>
+</html>
